@@ -1,7 +1,11 @@
 # MYSQL-Challenge
 SQL - Tableau integration projects for Data Analytics, Business Intelligence and Data Visualizations.
 
+
 ## Create Database
+ ```mysql
+
+
 DROP DATABASE IF EXISTS employees_mod;
 CREATE DATABASE IF NOT EXISTS employees_mod; 
 USE employees_mod;
@@ -14,8 +18,7 @@ DROP TABLE IF EXISTS t_employees,
                      t_dept_emp,
                      t_salaries;
                      
-/*!50503 set default_storage_engine = InnoDB */;
-/*!50503 select CONCAT('storage engine: ', @@default_storage_engine) as INFO */;                   
+                  
                                          
 CREATE TABLE t_employees (
     emp_no      INT		        NOT NULL,
@@ -59,10 +62,10 @@ CREATE TABLE t_salaries (
 ) 
 ;
 
-
+```
 
 ## Insert satatment 
-
+ ```mysql
 INSERT INTO t_employees(emp_no,birth_date,first_name,last_name,gender,hire_date) VALUES
 (10008,'1958-02-19','Saniya','Kalloufi','M','1994-09-15'),
 (10011,'1953-11-07','Mary','Sluis','F','1990-01-22'),
@@ -95,8 +98,9 @@ INSERT INTO t_employees(emp_no,birth_date,first_name,last_name,gender,hire_date)
 (10059,'1953-09-19','Alejandro','McAlpine','F','1991-06-26'),
 (10062,'1961-11-02','Anoosh','Peyn','M','1991-08-30'),
 (10073,'1954-02-23','Shir','McClurg','M','1991-12-01'),
-
+```
 ## Query : Select (LIKE, IN)
+ ```mysql
 /*Select all people from the “employees” table whose first name is “Elvis”.*/
 SELECT *
 FROM employees
@@ -123,17 +127,21 @@ WHERE salary > 80000
 GROUP BY 1
 ORDER BY 1;
 
+ 
 
+```
 ## Query : Join
-*Extract a list containing information about all managers’ employee number, first and last name, 
+```mysql
+/*Extract a list containing information about all managers’ employee number, first and last name, 
 department number, and hire date. Use the old type of join syntax to obtain the result.*/
 /*Old style*/
 SELECT e.emp_no, e.first_name, e.last_name, dm.dept_no, e.hire_date
 FROM employees e, dept_manager dm
 WHERE  dm.emp_no = e.emp_no
 ORDER BY dm.dept_no DESC, e.emp_no;
-
+```
 ## Query : Sub-Query
+```mysql
 /*Extract the information about all department managers who were hired between the 1st of January 1990 and the 1st of January 1995.*/
 SELECT *
 FROM dept_manager
@@ -141,7 +149,9 @@ WHERE emp_no IN (
 	SELECT emp_no FROM employees
     WHERE hire_date BETWEEN '1990-01-01' AND '1995-01-01'
 );
+```
 ## Query : View
+```mysql
 /*get the latest department info of the employee using VIEW*/
 CREATE OR REPLACE VIEW v_dept_emp_latest_date AS
 	SELECT emp_no, MAX(from_date) AS from_date, MAX(to_date) AS to_date
@@ -149,9 +159,11 @@ CREATE OR REPLACE VIEW v_dept_emp_latest_date AS
     GROUP BY emp_no;
     
 SELECT * FROM v_dept_emp_latest_date;
-
+```
 ## Query : Stored Route
+
 Set of stored sql
+```mysql
 /* -----------------------------------------------------*/
 /*           Avarage salary of all employees            */
 /* -----------------------------------------------------*/
@@ -183,8 +195,9 @@ WHERE emp_no = '10001';
 
 #testing
 INSERT INTO salaries VALUES ('10001', -92891, '2010-06-22', '9999-01-01');
-
+```
 ## Query : Case
+```mysql
 /*Create a fourth column in the query, indicating whether this employee is also a manager, 
 according to the data provided in the dept_manager table, or a regular employee. */
 SELECT e.emp_no, e.first_name, e.last_name,
@@ -194,10 +207,12 @@ SELECT e.emp_no, e.first_name, e.last_name,
     END AS manager_or_employee
 FROM employees e
 LEFT JOIN dept_manager dm ON dm.emp_no = e.emp_no
+```
 ## Query : Index
-we create index when we use that field a lot in our queries
-we gain faster result!
 
+we create index when we use that field a lot in our queries.
+by using index we gain faster result!
+```mysql
 /*Select all records from the ‘salaries’ table of people whose salary is higher than $89,000 per annum.
 Then, create an index on the ‘salary’ column of that table, and check if it has sped up the search of the same SELECT statement.*/
 SELECT salary FROM salaries
@@ -208,7 +223,7 @@ ON salaries(salary);
 
 SELECT salary FROM salaries
 WHERE salary > 89000;
-
+```
 ## visualize it by Tablue 
 cooming soon
 
