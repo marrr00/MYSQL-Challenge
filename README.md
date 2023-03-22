@@ -2,22 +2,9 @@
 SQL - Tableau integration projects for Data Analytics, Business Intelligence and Data Visualizations.
 
 
-## Create Database
+## Create Table
  ```mysql
 
-
-DROP DATABASE IF EXISTS employees_mod;
-CREATE DATABASE IF NOT EXISTS employees_mod; 
-USE employees_mod;
-
-SELECT 'CREATING DATABASE STRUCTURE' as 'INFO';
-
-DROP TABLE IF EXISTS t_employees,
-                     t_dept_manager,
-                     t_departments,
-                     t_dept_emp,
-                     t_salaries;
-                     
                   
                                          
 CREATE TABLE t_employees (
@@ -160,23 +147,11 @@ CREATE OR REPLACE VIEW v_dept_emp_latest_date AS
     
 SELECT * FROM v_dept_emp_latest_date;
 ```
-## Query : Stored Route
-
-Set of stored sql
-```mysql
-/* -----------------------------------------------------*/
-/*           Avarage salary of all employees            */
-/* -----------------------------------------------------*/
 
 
-DELIMITER $$
-CREATE PROCEDURE select_avg_sal_all_employees()
-BEGIN
-	SELECT AVG(salary)
-    FROM salaries;
-END $$
-DELIMITER ;
 ## Query : Trigger
+```mysql
+
 /*check salary < 0 or not when inserted , if < 0, insert as 0 instead of negative number*/
 DELIMITER $$
 CREATE TRIGGER before_salaries_insert
